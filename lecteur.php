@@ -20,75 +20,83 @@ else
 <html>
 <head>
 	<title>Lecteur de fichiers</title>
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="col-md-12">
 		<div class="col-md-offset-5">
-			<a class="aligne liensHaut" href="?">ACCEUIL</a>
+			<a class="liensHaut" href="?">ACCEUIL</a>
 			<?php
-				$parent = reportorieParent($path, "/");
-				echo "<a class='aligne liensHaut' href='?path=$parent'>Dossier parent</a>";
+				$parent = reportorieParent($path);
+				echo "<a class='liensHaut' href='?path=$parent'>Dossier parent</a>";
 			?>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="col-md-offset-2 col-md-8">
 
-<?php
+	<?php
 
-/*  Si on a cliquer sur un lien ou pas  */
-if(!isset($_GET['path']))
-{
-	$repertoire = "c:/wamp64/www/";
-	$path="";
-}
+	/*  Si on a cliquer sur un lien ou pas  */
+	if(!isset($_GET['path']))
+	{
+		$repertoire = "c:/wamp64/www/";
+		$path="";
+	}
 
-else
-{
-	$repertoire = "c:/wamp64/www/". $_GET['path'];
-	$path = $_GET['path'];
-}
+	else
+	{
+		$repertoire = "c:/wamp64/www/". $_GET['path'];
+		$path = $_GET['path'];
+	}
 
-/*  Fonction permettant d'accèder au dossier www  */
-function displayHome($repertoire, $path)
-{
+
+	/*  Vérifie si on est dans un dossier  */
 	if(is_dir($repertoire))
 	{
 		$dossier = scandir($repertoire);
 
 		for($i = 2 ; $i < count($dossier); $i++)
 		{
+			$tableau = verifFile($dossier[$i]);
 
-			/*  Le fichier est un dossier  */
-			if(is_file($repertoire . $dossier[$i]) == false)
+			/*  Le document est un dossier  */
+			if($tableau[0] == NULL)
 			{
 				$chemin =$dossier[$i];
 				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/dossier.png'></a>";
 			}
 
-			/*  Le fichier n'est pas un dossier  */
+			/*  Le document est un fichier  */
 			else
 			{
 				$chemin =$dossier[$i];
-				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/fichier.png'></a>";
+				$extention = $tableau[1];
+				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/$extention.png'></a>";
 			}
 		}
 	}
-}
-
-function reportorieParent($chemin, $chercher)
-{
-  $position = strripos($chemin, $chercher);
-
- return substr($chemin, 0, $position - strlen($chemin));
-}
-
-displayHome($repertoire, $path);
 
 
-?>
+	/*  Recherche du dossier parent  */
+	function reportorieParent($chemin)
+	{
+		$position = strripos($chemin, "/");
+
+		return substr($chemin, 0, $position - strlen($chemin));
+	}
+
+	/*  Cherche le format du document  */
+	function verifFile($file)
+	{
+		$tableau = [];
+		$tableau[0] = strripos($file, ".");
+		$tableau[1] = substr($file, $tableau[0] + 1);
+		return $tableau;
+	}
+
+	?>
 		</div>
 	</div>
 

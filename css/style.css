@@ -6,9 +6,12 @@ a:link
 .liensHaut
 {
 	margin : 100px 0 200px 50px;
+	float :left;
 }
 
 .aligne
 {
 	float : left;
+	height : 156px;
+	width : 96px; 
 }
