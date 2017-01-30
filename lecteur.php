@@ -1,11 +1,50 @@
 <?php
 
+/*  Si on a cliquer sur un lien ou pas  */
 if(!isset($_GET['path']))
 {
 	$repertoire = "c:/wamp64/www/";
 	$path="";
-
 }
+
+else
+{
+	$repertoire = "c:/wamp64/www/". $_GET['path'];
+	$path = $_GET['path'];
+}
+
+?>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecteur de fichiers</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+	<div class="col-md-12">
+		<div class="col-md-offset-5">
+			<a class="aligne liensHaut" href="?">ACCEUIL</a>
+			<?php
+				$parent = reportorieParent($path, "/");
+				echo "<a class='aligne liensHaut' href='?path=$parent'>Dossier parent</a>";
+			?>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-offset-2 col-md-8">
+
+<?php
+
+/*  Si on a cliquer sur un lien ou pas  */
+if(!isset($_GET['path']))
+{
+	$repertoire = "c:/wamp64/www/";
+	$path="";
+}
+
 else
 {
 	$repertoire = "c:/wamp64/www/". $_GET['path'];
@@ -19,53 +58,40 @@ function displayHome($repertoire, $path)
 	{
 		$dossier = scandir($repertoire);
 
-		for($i = 1 ; $i < count($dossier); $i++)
+		for($i = 2 ; $i < count($dossier); $i++)
 		{
-			echo $dossier[$i];
 
-			/*  Vérifie si le dossier est vraiment un dossier  */
+			/*  Le fichier est un dossier  */
 			if(is_file($repertoire . $dossier[$i]) == false)
 			{
-				$chemin ="$dossier[$i]";
-				// echo $chemin;
-				echo "<a href='?path=$path/$chemin'><img src='css/images/arrow.png'></a><br>";
+				$chemin =$dossier[$i];
+				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/dossier.png'></a>";
 			}
+
+			/*  Le fichier n'est pas un dossier  */
 			else
 			{
-				echo "c'est un fichier <br> <br>";
+				$chemin =$dossier[$i];
+				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/fichier.png'></a>";
 			}
 		}
 	}
 }
 
+function reportorieParent($chemin, $chercher)
+{
+  $position = strripos($chemin, $chercher);
+
+ return substr($chemin, 0, $position - strlen($chemin));
+}
 
 displayHome($repertoire, $path);
 
- //  $ma_chaine = 'C:/wamp64/www';
- //  $trouve_moi  = '/';
- //  $position = strripos($ma_chaine, $trouve_moi);
-
- //  // Vous devez utiliser ===  car == n'affichera rien
- //  // car la lettre 'a' est à la position 0
-
- //  if ($position === false) {
- //      echo '',$trouve_moi,' n\'a pas été trouvé dans la chaine ',$ma_chaine,'';
- //      } else 
- //      {
- //      echo '',$trouve_moi,' a été trouvée dans la chaîne ',$ma_chaine,'';
- //      echo 'à la position ',$position,'<br>';
- //      }
- // echo substr($ma_chaine, 0, $position - strlen($ma_chaine));
 
 ?>
+		</div>
+	</div>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Lecteur de fichiers</title>
-	<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-	<a href="?"><img src="css/images/home.png" alt="HOME"></a> 
 </body>
+
 </html>

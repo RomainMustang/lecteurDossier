@@ -1,6 +1,14 @@
-#home
+a:link 
+{ 
+ text-decoration:none; 
+}
+
+.liensHaut
 {
-	background-image: url("images/home.png");
-	background-repeat: no-repeat;
-	height : 150px;
+	margin : 100px 0 200px 50px;
+}
+
+.aligne
+{
+	float : left;
 }
