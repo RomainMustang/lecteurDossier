@@ -3,38 +3,43 @@
 if(!isset($_GET['path']))
 {
 	$repertoire = "c:/wamp64/www/";
+	$path="";
 
 }
 else
 {
-	$repertoire = $_GET['path'];
+	$repertoire = "c:/wamp64/www/". $_GET['path'];
+	$path = $_GET['path'];
 }
 
 /*  Fonction permettant d'accèder au dossier www  */
-function displayHome($repertoire)
+function displayHome($repertoire, $path)
 {
-	$dossier = scandir($repertoire);
-
-	for($i = 1 ; $i < count($dossier); $i++)
+	if(is_dir($repertoire))
 	{
-		echo $dossier[$i];
+		$dossier = scandir($repertoire);
 
-		/*  Vérifie si le dossier est vraiment un dossier  */
-		if(is_file($repertoire . $dossier[$i]) == false)
+		for($i = 1 ; $i < count($dossier); $i++)
 		{
-			$chemin = $repertoire . $dossier[$i];
-			echo $chemin;
-			//echo "<a href='path=$chemin'><img src='css/images/arrow.png'></a><br>";
-		}
-		else
-		{
-			echo "c'est un fichier <br> <br>";
+			echo $dossier[$i];
+
+			/*  Vérifie si le dossier est vraiment un dossier  */
+			if(is_file($repertoire . $dossier[$i]) == false)
+			{
+				$chemin ="$dossier[$i]";
+				// echo $chemin;
+				echo "<a href='?path=$path/$chemin'><img src='css/images/arrow.png'></a><br>";
+			}
+			else
+			{
+				echo "c'est un fichier <br> <br>";
+			}
 		}
 	}
 }
 
 
-displayHome($repertoire);
+displayHome($repertoire, $path);
 
  //  $ma_chaine = 'C:/wamp64/www';
  //  $trouve_moi  = '/';
@@ -61,6 +66,6 @@ displayHome($repertoire);
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<a href="?path=c:/wamp64/www"><img src="css/images/home.png" alt="HOME"></a> 
+	<a href="?"><img src="css/images/home.png" alt="HOME"></a> 
 </body>
 </html>
