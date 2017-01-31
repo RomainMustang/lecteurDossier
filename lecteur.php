@@ -26,9 +26,9 @@ else
 <body>
 	<div class="col-md-12">
 		<div class="col-md-offset-5">
-			<a class="liensHaut" href="?">ACCEUIL</a>
+			<a class="liensHaut" href="?">ACCUEIL</a>
 			<?php
-				$parent = reportorieParent($path);
+				$parent = directorieParent($path);
 				echo "<a class='liensHaut' href='?path=$parent'>Dossier parent</a>";
 			?>
 		</div>
@@ -38,49 +38,56 @@ else
 
 	<?php
 
-	/*  Si on a cliquer sur un lien ou pas  */
-	if(!isset($_GET['path']))
-	{
-		$repertoire = "c:/wamp64/www/";
-		$path="";
-	}
-
-	else
-	{
-		$repertoire = "c:/wamp64/www/". $_GET['path'];
-		$path = $_GET['path'];
-	}
-
-
 	/*  Vérifie si on est dans un dossier  */
 	if(is_dir($repertoire))
 	{
-		$dossier = scandir($repertoire);
+		$dossiers = [];
+		$fichiers = [];
 
-		for($i = 2 ; $i < count($dossier); $i++)
+		$elements = scandir($repertoire);
+
+		foreach ($elements as $element) 
 		{
-			$tableau = verifFile($dossier[$i]);
-
-			/*  Le document est un dossier  */
-			if($tableau[0] == NULL)
+			if(is_dir($repertoire."/".$element))
 			{
-				$chemin =$dossier[$i];
-				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/dossier.png'></a>";
+				if($element != ".." && $element != ".")
+				{
+					$dossiers[] = $element;
+				}
 			}
-
-			/*  Le document est un fichier  */
 			else
 			{
-				$chemin =$dossier[$i];
-				$extention = $tableau[1];
-				echo "<a class='aligne' href='?path=$path/$chemin'>$dossier[$i]<img src='css/images/$extention.png'></a>";
+				if($element != ".htaccess")
+				{
+					$fichiers[] = $element;
+				}
 			}
 		}
-	}
 
+		for($i = 0 ; $i < count($dossiers); $i++)
+		{
+			$tableau = verifFile($dossiers[$i]);
+			$chemin =$dossiers[$i];
+			echo "<div class='col-md-2'>
+						<a class='aligne' href='?path=$path/$chemin'><img src='css/images/dossier.png'>$dossiers[$i]</a>
+				  </div>";
+		}
+
+		for($i = 0 ; $i < count($fichiers); $i++)
+		{
+			$tableau = verifFile($fichiers[$i]);
+			$extention = $tableau[1];
+			$chemin =$fichiers[$i];
+			echo "<div class='col-md-2'>
+						<a class='aligne' href='?path=$path/$chemin'><img src='css/images/$extention.png'>$fichiers[$i]</a>
+				  </div>";	
+		}
+	}
+}
+}
 
 	/*  Recherche du dossier parent  */
-	function reportorieParent($chemin)
+	function directorieParent($chemin)
 	{
 		$position = strripos($chemin, "/");
 
@@ -88,11 +95,11 @@ else
 	}
 
 	/*  Cherche le format du document  */
-	function verifFile($file)
+	function verifFile($doc)
 	{
 		$tableau = [];
-		$tableau[0] = strripos($file, ".");
-		$tableau[1] = substr($file, $tableau[0] + 1);
+		$tableau[0] = strripos($doc, ".");
+		$tableau[1] = substr($doc, $tableau[0] + 1);
 		return $tableau;
 	}
 
