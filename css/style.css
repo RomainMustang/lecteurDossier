@@ -3,12 +3,6 @@ a:link
  text-decoration:none; 
 }
 
-.liensHaut
-{
-	margin : 40px 0 0 40px;
-	float :left;
-}
-
 #loca
 {
 	float : left;
@@ -18,11 +12,13 @@ a:link
 
 .aligne
 {
+	padding : 0 15px, 0 15px;
 	text-align: center;
 	float : left;
 	height : 156px;
 	width : 96px; 
 }
+
 .color
 {
     background-color: #f9f9f9;
@@ -40,10 +36,12 @@ a:link
   animation-name: glissement;
   animation-iteration-count: infinite;
 }
+
 .slide div:hover img 
 {
   animation-iteration-count: infinite; 
 }
+
 @keyframes glissement 
 {
   from 
@@ -56,11 +54,13 @@ a:link
         margin-left: 92%;
     }
 }
+
 @font-face 
 {    
     font-family: 'Jurassic-Park'; 
     src:url('Jurassic-Park.ttf.woff');
 }
+
 h1
 {
     text-align: center;
@@ -68,7 +68,9 @@ h1
     font-size: 150px;
     text-shadow: 2px 2px #FF0000;
 }
-footer{
+
+footer
+{
     text-align: center;
     font-size: 18px;
     background-color: #f9f9f9;

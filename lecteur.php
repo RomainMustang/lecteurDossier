@@ -26,28 +26,29 @@ else
 </head>
 <body>
 <div class="container-fluid">
-	<div class="slide morph slide1">	
-		<div class="col-md-offset-3 col-md-5">
+	<div class="slide morph">	
+		<div class="col-md-offset-3 col-md-5 color">
 			<img src="css/images/acceuil2.png" alt="acceuil">
 		</div>
+		<h1>1 TyrExplorator 1</h1>
 	</div>
 	<div class="col-md-12">
 		<div class="col-md-offset-4" id="loca">
 			<?php
-				echo "Vous êtes dans : accueil" . $path;
+				echo "<span style='font-weight:bold;'>Vous êtes dans:</span> accueil" . $path;
 			?>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="col-md-offset-4 col-md-4">
 			<div class="col-md-4 col-md-offset-2">
-				<a class="aligne" href="?"><img src="css/images/dossier.png">ACCUEIL</a>
+				<a class="aligne" href="?"><img src="css/images/home.png">ACCUEIL</a>
 			</div>
 			<?php
 				/*  Aller au dossier parent  */
 				$parent = directorieParent($path);
 				echo "<div class='col-md-4'>
-						<a class='liensHaut aligne' href='?path=$parent'><img src='css/images/dossier.png'>Retour</a>
+						<a class='liensHaut aligne' href='?path=$parent'><img src='css/images/retour.png'>Retour</a>
 					  </div>";
 			?>
 		</div>
@@ -128,7 +129,9 @@ else
 		{
 			echo htmlentities(highlight_string(file_get_contents($file)));
 		}	
-		echo "<a href='$path' download='$name'>Télécharger le contenu de la page</a>";
+		echo "<div style='text-align: center;'>
+				<a href='$path' download='$name'>Télécharger le contenu de la page</a>
+			  </div>";
 	}
 
 	/*  Récupère le fichier complet(nom + extention)  */
@@ -160,6 +163,10 @@ else
 		</div>
 	</div>
 </div>
+
+<footer>
+	Explorateur de fichier créer par Sarah et Romain.
+</footer>
 
 </body>
 
