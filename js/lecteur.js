@@ -1,2 +1,0 @@
-
-/*  Click sur le dossier  */

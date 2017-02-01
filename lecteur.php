@@ -1,12 +1,13 @@
 <?php
 
-/*  Si on a cliquer sur un lien ou pas  */
+/*  Si on navigue dans les dossiers ou fichiers  */
 if(!isset($_GET['path']))
 {
 	$repertoire = "c:/wamp64/www/";
 	$path="";
 }
 
+/*  Chargement de la page de démarrage  */
 else
 {
 	$repertoire = "c:/wamp64/www". $_GET['path'];
@@ -24,12 +25,18 @@ else
 		<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<div class="slide morph slide1">	
+		<div class="col-md-offset-3 col-md-5">
+			<img src="css/images/acceuil2.png" alt="acceuil">
+		</div>
+	</div>
 	<div class="col-md-12">
 		<div class="col-md-offset-5">
-			<a class="liensHaut" href="?">ACCUEIL</a>
+			<a class="liensHaut aligne" href="?"><img src="css/images/dossier.png">ACCUEIL</a>
 			<?php
+				/*  Aller au dossier parent  */
 				$parent = directorieParent($path);
-				echo "<a class='liensHaut' href='?path=$parent'>Dossier parent</a>";
+				echo "<a class='liensHaut aligne' href='?path=$parent'><img src='css/images/dossier.png'>Retour</a>";
 			?>
 		</div>
 	</div>
@@ -44,12 +51,15 @@ else
 		$dossiers = [];
 		$fichiers = [];
 
+		/*  Scan tous les document du dossier  */
 		$elements = scandir($repertoire);
 
 		foreach ($elements as $element) 
 		{
+			/*  Vérifie le format du document  */
 			if(is_dir($repertoire."/".$element))
 			{
+				/*  On ajoute tous les dossiers sauf le dossier parent et courant  */
 				if($element != ".." && $element != ".")
 				{
 					$dossiers[] = $element;
@@ -57,6 +67,7 @@ else
 			}
 			else
 			{
+				/*  On ajoute tous les fichiers sauf le fichier .htaccess  */
 				if($element != ".htaccess")
 				{
 					$fichiers[] = $element;
@@ -64,6 +75,7 @@ else
 			}
 		}
 
+		/*  On affiche tous les dossiers du dossier courant  */
 		for($i = 0 ; $i < count($dossiers); $i++)
 		{
 			$tableau = verifFile($dossiers[$i]);
@@ -73,6 +85,7 @@ else
 				  </div>";
 		}
 
+		/*  On affiche tous les fichiers du dossier courant  */
 		for($i = 0 ; $i < count($fichiers); $i++)
 		{
 			$tableau = verifFile($fichiers[$i]);
@@ -83,11 +96,14 @@ else
 				  </div>";	
 		}
 	}
+
+	/*  Lorque que l'on clic sur un fichier  */
 	else
 	{
 		showFile($repertoire, $path);
 	}
 
+	/*  Affiche un fichier  */
 	function showFile($file, $path)
 	{
 		$doc = verifFile($file);
