@@ -3,14 +3,18 @@ a:link
  text-decoration:none; 
 }
 
-.liensHaut
+#loca
 {
-	margin : 45px 0 50px 40px;
-	float :left;
+	float : left;
+	text-align: center;
+	font-size : 28px;
 }
+
+
 
 .aligne
 {
+	padding : 0 15px, 0 15px;
 	text-align: center;
 	float : left;
 	height : 156px;

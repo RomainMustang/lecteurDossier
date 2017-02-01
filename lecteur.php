@@ -25,18 +25,30 @@ else
 		<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container-fluid">
 	<div class="slide morph slide1">	
 		<div class="col-md-offset-3 col-md-5">
 			<img src="css/images/acceuil2.png" alt="acceuil">
 		</div>
 	</div>
 	<div class="col-md-12">
-		<div class="col-md-offset-5">
-			<a class="liensHaut aligne" href="?"><img src="css/images/dossier.png">ACCUEIL</a>
+		<div class="col-md-offset-4" id="loca">
+			<?php
+				echo "Vous êtes dans : accueil" . $path;
+			?>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-offset-4 col-md-4">
+			<div class="col-md-4 col-md-offset-2">
+				<a class="aligne" href="?"><img src="css/images/dossier.png">ACCUEIL</a>
+			</div>
 			<?php
 				/*  Aller au dossier parent  */
 				$parent = directorieParent($path);
-				echo "<a class='liensHaut aligne' href='?path=$parent'><img src='css/images/dossier.png'>Retour</a>";
+				echo "<div class='col-md-4'>
+						<a class='liensHaut aligne' href='?path=$parent'><img src='css/images/dossier.png'>Retour</a>
+					  </div>";
 			?>
 		</div>
 	</div>
@@ -138,6 +150,7 @@ else
 	?>
 		</div>
 	</div>
+</div>
 
 </body>
 
