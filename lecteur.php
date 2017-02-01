@@ -119,15 +119,24 @@ else
 	function showFile($file, $path)
 	{
 		$doc = verifFile($file);
+		$name=getName($file);
 		if($doc[1] == "png" || $doc[1] == "ico"  || $doc[1] == "jpg")
 		{
 			echo "<img src='$path'>";
 		}
 		else
 		{
-			echo "<a href='$path'>télécharger</a> <br>";
 			echo htmlentities(highlight_string(file_get_contents($file)));
-		}		
+		}	
+		echo "<a href='$path' download='$name'>Télécharger le contenu de la page</a>";
+	}
+
+	/*  Récupère le fichier complet(nom + extention)  */
+	function getName($doc)
+	{
+		$position = strripos($doc, "/");
+
+		return substr($doc, $position + 1);
 	}
 
 	/*  Recherche du dossier parent  */
