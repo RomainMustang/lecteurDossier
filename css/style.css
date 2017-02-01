@@ -1,0 +1,42 @@
+a:link 
+{ 
+ text-decoration:none; 
+}
+
+.liensHaut
+{
+	margin : 45px 0 50px 40px;
+	float :left;
+}
+
+.aligne
+{
+	float : left;
+	height : 156px;
+	width : 96px; 
+}
+
+}
+.slide div img {
+    margin-top: 5px;
+	margin-left: 0px;
+	-webkit-transition: 2s ease-in-out;
+	transition: 2s ease-in-out;
+}
+.slide div:hover img {
+	margin-left: 850px;
+}
+
+.morph div img {
+  width: 150px;
+  height: 150px;
+  -webkit-transition: all 2.5s ease;
+  transition: all 2.5s ease;
+}
+ 
+.morph div:hover img {
+  width: 150px; /* on affiche l'image au carré */
+  height: 150px;
+  -webkit-transform: rotate(1440deg); /* rotation de l'image */
+  transform: rotate(1440deg);
+}
