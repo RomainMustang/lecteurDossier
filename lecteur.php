@@ -9,7 +9,7 @@ if(!isset($_GET['path']))
 
 else
 {
-	$repertoire = "c:/wamp64/www/". $_GET['path'];
+	$repertoire = "c:/wamp64/www". $_GET['path'];
 	$path = $_GET['path'];
 }
 
@@ -83,8 +83,24 @@ else
 				  </div>";	
 		}
 	}
-}
-}
+	else
+	{
+		showFile($repertoire, $path);
+	}
+
+	function showFile($file, $path)
+	{
+		$doc = verifFile($file);
+		if($doc[1] == "png" || $doc[1] == "ico"  || $doc[1] == "jpg")
+		{
+			echo "<img src='$path'>";
+		}
+		else
+		{
+			echo "<a href='$path'>télécharger</a> <br>";
+			echo htmlentities(highlight_string(file_get_contents($file)));
+		}		
+	}
 
 	/*  Recherche du dossier parent  */
 	function directorieParent($chemin)
