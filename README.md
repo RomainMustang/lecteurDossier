@@ -1,3 +1,4 @@
 # lecteurDossier
 
-Application ayant pour but de naviguer dans les dossiers et fichiers de la racine du serveur local de la machine
+Application pouvant naviguer dans les dossiers, afficher les sous-dossiers ainsiq ue les fichiers.
+Possiblité d'afficher le contenu du fichier et de le télécharger( sauf contenu php)
